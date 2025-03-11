@@ -122,12 +122,9 @@ This project is licensed under the MIT license - see the [LICENSE](LICENSE) file
 
 If you have any questions or suggestions, please contact :
 
-- Name**: Your name
+- Name**: Hugo CERMAK
 
-- Email**: votre.email@example.com
-
-- GitHub** : [@your-user](https://github.com/votre-utilisateur)
-
+- Email**: huce62694@eleve.isep.fr
 
 
 ---

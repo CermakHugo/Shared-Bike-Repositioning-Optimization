@@ -1,17 +1,22 @@
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
+import pandas as pd
+import numpy as np
 
 # Charger les données sur le nombre de vélo par station
-data = fetch_california_housing()
-X, y = data.data, data.target  # X = caractéristiques, y = prix
+data = pd.read_csv("../../data/diff_dic.csv")
+
+# X = date, y = liste de fluctuation de vélo
+X = data.drop(columns=["2020-04-30"])
+y = data["2020-04-30"]
+
 
 # Diviser entrainement et test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # Initialiser le modèle Random Forest pour la régression
-regressor = RandomForestRegressor(n_estimators=100, random_state=42)
+regressor = RandomForestRegressor(n_estimators=100)
 regressor.fit(X_train, y_train)
 
 # Prédire les prix des maisons

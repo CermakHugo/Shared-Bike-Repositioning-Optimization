@@ -1,40 +1,137 @@
 # Créé par cerma, le 19/03/2025 en Python 3.7
 
-import mutation
-import crossover
-import generator
-import fitness
-import selector
+import random
+import pandas as pd
 
-# Paramètres
-TAILLE_POP = 10   # Nombre d'individus
-LONGUEUR_GENOME = 8  # Nombre de station
-TAUX_MUTATION = 0.1  # Probabilité de mutation
-N_GENERATIONS = 50  # Nombre d'itérations
+class GeneticAlgorithm:
+    def __init__(self,
+                 genome_length=8,
+                 population_size=10,
+                 mutation_rate=0.1,
+                 generations=50,
+                 poids_camions = 10,
+                 poids_flux = 20,
+                 poid_distance = 1,
+                 distance_matrix=None,
+                 stations=None):
+        self.genome_length = genome_length
+        self.population_size = population_size
+        self.mutation_rate = mutation_rate
+        self.generations = generations
+        self.poids_camions = poids_camions
+        self.poids_flux = poids_flux
+        self.poid_distance = poid_distance
+        self.distance_matrix = distance_matrix
+        self.stations = stations
+        self.population = []
 
-# DEF GENOME : CC - nombre de Camion - XXXX - Next Station
-# EX : 02000100020003004 ...
+    def initialize_population(self):
+        self.population = generator.generer_population(self.genome_length, self.population_size)
 
-# Algorithme génétique principal
-def algorithme_genetique():
-    population = generator.generer_population(LONGUEUR_GENOME,TAILLE_POP)
+    # Générer un individu aléatoire en fonction du nombre de station
+    def generer_individu(self):
+        return [random.randint(0,100)].append([random.randint(0, self.genome_length) for _ in range (self.genome_length)])
 
-    for generation in range(N_GENERATIONS):
-        population = sorted(population, key=fitness.fitness, reverse=True)
-        print(f"Génération {generation}: Meilleur score: {fitness.fitness(population[0])}")
+    # Générer une population
+    def generer_population(self, TAILLE_POP):
+        return [generer_individu(self.genome_length) for _ in range(TAILLE_POP)]
 
-        nouvelle_population = []
-        while len(nouvelle_population) < TAILLE_POP:
-            parent1, parent2 = selector.selection(population), selector.selection(population)
-            enfant1, enfant2 = crossover.crossover(parent1, parent2, LONGUEUR_GENOME)
-            nouvelle_population.extend([mutation.mutation(enfant1, TAUX_MUTATION), mutation.mutation(enfant2, TAUX_MUTATION)])
+    # Fonction d'évaluation (Fitness function) : Limiter les trajets trop long, l'utilisation de camion et surtout doit rééquilibrer les stations
 
-        population = nouvelle_population[:TAILLE_POP]
+    def fitness(self, genome):
+        nb_camions, stations = decoder_genome(genome)
+        flux_stations = flux_stations(all_stations)
+        camions = repartir_stations(nb_camions, stations)
+        total_distance = distance_totale(camions)
 
-    return sorted(population, key=fitness.fitness, reverse=True)[0]
+        # Pénalise le nombre de camions
+        penalite_camions = nb_camions * self.poids_camions
 
-# Exécution de l'AG
-meilleur_individu = algorithme_genetique()
-meilleure_valeur = int("".join(map(str, meilleur_individu)))
-print(f"Meilleure solution trouvée: {meilleure_valeur} (f(x)={meilleure_valeur**2})")
+        # Pénalise les flux mal réparti
+        penalite_flux = flux_stations * self.poids_flux
 
+        # Pénalité pour des trajets trop long
+
+        penalite_distance = total_distance * self.poid_distance
+
+        # Moins la valeur est grande, mieux c’est → On inverse pour que la fitness soit à maximiser
+        return 1 / (penalite_distance + penalite_camions + penalite_flux + 1e-6)  # éviter division par 0
+
+    def decoder_genome(self, genome):
+        nb_camions = genome[0]
+        stations = genome[1:]
+        return nb_camions, stations
+
+    # Réparti les stations à rééquilibrer pour chaque camion
+    def repartir_stations(self, nb_camions, stations):
+        camions = [[] for _ in range(nb_camions)]
+        if nb_camions > 0 :
+            for i, station in enumerate(stations):
+                camions[i % nb_camions].append(station)
+        return camions
+
+    #Calcul la distance maximal parcourru par tout les camions
+    def distance_totale(self, camions):
+        total = 0
+        for trajet in camions:
+            if len(trajet) < 2:
+                continue
+            for i in range(len(trajet) - 1):
+                total += self.distance_matrix[trajet[i]][trajet[i + 1]]
+        return total
+
+    def flux_stations(self, stations):
+        total = 0
+        for i in stations :
+            total += abs(i)
+        return total
+
+    # Croisement (Crossover) à un point
+    def crossover(self, parent1, parent2):
+        point = random.randint(1, self.genome_length - 1)
+        return parent1[:point] + parent2[point:], parent2[:point] + parent1[point:]
+
+    # Mutation (inversion aléatoire de bits)
+    def mutation(self, individu):
+        return [bit if random.random() > self.mutation_rate else str(random.randint(0,10)) for bit in individu]
+
+    # Sélection par tournoi
+    def selection(self):
+        return max(random.sample(self.population, 3), key=self.fitness)
+
+    def evolve(self):
+        self.population = self.generer_population()
+
+        for generation in range(self.generations):
+            self.population = sorted(
+                self.population,
+                key=self.fitness,
+                reverse=True
+            )
+            best = self.population[0]
+            best_score = self.evaluate_fitness(best)
+            print(f"Génération {generation}: Meilleur score: {best_score}")
+
+            new_population = []
+            while len(new_population) < self.population_size:
+                parent1 = self.selection(self.population, self.distance_matrix, self.stations)
+                parent2 = self.selection(self.population, self.distance_matrix, self.stations)
+                enfant1, enfant2 = self.crossover(parent1, parent2, self.genome_length)
+                enfant1 = self.mutation(enfant1, self.mutation_rate)
+                enfant2 = self.mutation(enfant2, self.mutation_rate)
+                new_population.extend([enfant1, enfant2])
+
+            self.population = new_population[:self.population_size]
+
+        return sorted(
+            self.population,
+            key=self.fitness,
+            reverse=True
+        )[0]
+
+    def run(self):
+        best_genome = self.evolve()
+        print(f"Meilleure solution trouvée : {best_genome}")
+        score = self.evaluate_fitness(best_genome)
+        print(f"Fitness finale : {score}")
+        return best_genome, score

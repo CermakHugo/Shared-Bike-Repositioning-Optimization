@@ -4,25 +4,47 @@ from sklearn.metrics import mean_absolute_error
 import pandas as pd
 import numpy as np
 
-# Charger les données sur le nombre de vélo par station
-data = pd.read_csv("../../data/diff_dic.csv")
+class BikeFluctuationPredictor:
+    def __init__(self, data_path, target_column, test_size=0.2, n_estimators=100):
+        self.data_path = data_path
+        self.target_column = target_column
+        self.test_size = test_size
+        self.n_estimators = n_estimators
+        self.model = RandomForestRegressor(n_estimators=self.n_estimators)
+        self.data = None
+        self.X_train = None
+        self.X_test = None
+        self.y_train = None
+        self.y_test = None
+        self.y_pred = None
 
-# X = date, y = liste de fluctuation de vélo
-X = data.drop(columns=["2020-04-30"])
-y = data["2020-04-30"]
+    def load_data(self):
+        self.data = pd.read_csv(self.data_path)
+        X = self.data.drop(columns=[self.target_column])
+        y = self.data[self.target_column]
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=self.test_size)
 
+    def train(self):
+        self.model.fit(self.X_train, self.y_train)
 
-# Diviser entrainement et test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    def predict(self):
+        self.y_pred = self.model.predict(self.X_test)
+        return self.y_pred
 
-# Initialiser le modèle Random Forest pour la régression
-regressor = RandomForestRegressor(n_estimators=100)
-regressor.fit(X_train, y_train)
+    def evaluate(self):
+        if self.y_pred is None:
+            self.predict()
+        mae = mean_absolute_error(self.y_test, self.y_pred)
+        print(f"Erreur absolue moyenne : {mae:.2f} (Nombre de vélo)")
+        return mae
 
-# Prédire les prix des maisons
-y_pred = regressor.predict(X_test)
-
-# Évaluer l'erreur (différence entre prédictions et valeurs réelles)
-mae = mean_absolute_error(y_test, y_pred)
-print(f"Y Predit : {y_pred}")
-print(f"Erreur absolue moyenne : {mae:.2f} (Nombre de vélo)")
+    def run(self):
+        print("Chargement des données...")
+        self.load_data()
+        print("Entraînement du modèle...")
+        self.train()
+        print("Prédictions...")
+        predictions = self.predict()
+        print("Évaluation du modèle...")
+        self.evaluate()
+        print(f"Y Prédit : {predictions}")

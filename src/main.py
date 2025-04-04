@@ -17,16 +17,15 @@ def main():
 
     dist_df = pd.read_csv("../data/matrice_distance.csv", index_col=0)
     distance_matrix = dist_df.values.tolist()
-    stations = list(dist_df.columns.astype(int))
 
     # === 3. Algorithme Génétique ===
     ag = GeneticAlgorithm(
-        genome_length=len(stations),
+        genome_length=len(flux_prevu),
         population_size=100,
         mutation_rate=0.1,
         generations=500,
         distance_matrix=distance_matrix,
-        stations=stations
+        stations=flux_prevu
     )
     best_genome, score_ag = ag.run()
 
@@ -45,6 +44,7 @@ def main():
     for v_id, (route, dist) in solution_or.items():
         print(f"  → Véhicule {v_id + 1} : {' → '.join(map(str, route))} | Distance : {dist} unités")
     print(f"  → Distance totale OR-Tools : {dist_or} unités")
+    print(f"  → Fitness : {1/ (1 + dist_or)}")
     print("---------------------------------------------------")
 
     # Comparatif simplifié

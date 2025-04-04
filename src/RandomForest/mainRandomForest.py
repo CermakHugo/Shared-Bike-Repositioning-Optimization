@@ -32,8 +32,7 @@ class BikeFluctuationPredictor:
         return self.y_pred
 
     def evaluate(self):
-        if self.y_pred is None:
-            self.predict()
+        self.predict()
         mae = mean_absolute_error(self.y_test, self.y_pred)
         print(f"Erreur absolue moyenne : {mae:.2f} (Nombre de vélo)")
         return mae

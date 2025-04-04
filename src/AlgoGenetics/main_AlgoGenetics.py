@@ -40,7 +40,7 @@ class GeneticAlgorithm:
 
     def fitness(self, genome):
         nb_camions, stations = decoder_genome(genome)
-        flux_stations = flux_stations(all_stations)
+        flux_stations = flux_stations(stations)
         camions = repartir_stations(nb_camions, stations)
         total_distance = distance_totale(camions)
 
@@ -80,11 +80,20 @@ class GeneticAlgorithm:
                 total += self.distance_matrix[trajet[i]][trajet[i + 1]]
         return total
 
+    # Compte la différence total des fluxs de vélo dans toute les stations
     def flux_stations(self, stations):
         total = 0
-        for i in stations :
+        all_stations = calculate_flow(stations)
+        for i in all_stations :
             total += abs(i)
         return total
+
+    # Met les fluxs de vélo après le passage des camions
+    def calculate_flow(self, stations):
+        all_stations = self.stations.copy()
+        for i in stations:
+            all_stations[i] = 0
+        return all_stations
 
     # Croisement (Crossover) à un point
     def crossover(self, parent1, parent2):

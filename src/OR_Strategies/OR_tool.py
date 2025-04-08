@@ -47,6 +47,7 @@ class TSPSolver:
 
         if solution:
             self.print_solution(manager, routing, solution)
+            return self.return_solution(manager, routing, solution, data)
         else:
             print("Aucune solution trouvée.")
 
@@ -64,3 +65,23 @@ class TSPSolver:
         route.append(manager.IndexToNode(index))
         print(" → ".join(map(str, route)))
         print(f"Distance totale : {total_distance} unités")
+    
+    def return_solution(self,manager, routing, solution, data):
+        total_distance = 0
+        routes = {}
+
+        for vehicle_id in range(data['num_vehicles']):
+            index = routing.Start(vehicle_id)
+            route = []
+            route_distance = 0
+            while not routing.IsEnd(index):
+                node = manager.IndexToNode(index)
+                route.append(node)
+                next_index = solution.Value(routing.NextVar(index))
+                route_distance += routing.GetArcCostForVehicle(index, next_index, vehicle_id)
+                index = next_index
+            route.append(manager.IndexToNode(index))  # retour au dépôt
+            total_distance += route_distance
+            routes[vehicle_id] = (route, route_distance)
+
+        return routes, total_distance

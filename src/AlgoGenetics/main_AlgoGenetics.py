@@ -9,8 +9,8 @@ class GeneticAlgorithm:
                  population_size=10,
                  mutation_rate=0.1,
                  generations=50,
-                 poids_camions = 10,
-                 poids_flux = 20,
+                 poids_camions = 1,
+                 poids_flux = 200,
                  poid_distance = 1,
                  distance_matrix=None,
                  stations=None):
@@ -26,23 +26,23 @@ class GeneticAlgorithm:
         self.population = []
 
     def initialize_population(self):
-        self.population = generator.generer_population(self.genome_length, self.population_size)
+        self.population = self.generator.generer_population()
 
     # Générer un individu aléatoire en fonction du nombre de station
     def generer_individu(self):
-        return [random.randint(0,100)].append([random.randint(0, self.genome_length) for _ in range (self.genome_length)])
+        return [random.randint(1,100)]+[random.randint(0, self.genome_length) for i in range (self.genome_length)]
 
     # Générer une population
-    def generer_population(self, TAILLE_POP):
-        return [generer_individu(self.genome_length) for _ in range(TAILLE_POP)]
+    def generer_population(self):
+        return [self.generer_individu() for _ in range(self.population_size)]
 
     # Fonction d'évaluation (Fitness function) : Limiter les trajets trop long, l'utilisation de camion et surtout doit rééquilibrer les stations
 
     def fitness(self, genome):
-        nb_camions, stations = decoder_genome(genome)
-        flux_stations = flux_stations(stations)
-        camions = repartir_stations(nb_camions, stations)
-        total_distance = distance_totale(camions)
+        nb_camions, stations = self.decoder_genome(genome)
+        camions = self.repartir_stations(nb_camions, stations)
+        flux_stations = self.flux_stations(stations, camions)
+        total_distance = self.distance_totale(camions)
 
         # Pénalise le nombre de camions
         penalite_camions = nb_camions * self.poids_camions
@@ -58,16 +58,16 @@ class GeneticAlgorithm:
         return 1 / (penalite_distance + penalite_camions + penalite_flux + 1e-6)  # éviter division par 0
 
     def decoder_genome(self, genome):
-        nb_camions = genome[0]
+        nb_camions = int(genome[0])
         stations = genome[1:]
         return nb_camions, stations
 
     # Réparti les stations à rééquilibrer pour chaque camion
     def repartir_stations(self, nb_camions, stations):
-        camions = [[] for _ in range(nb_camions)]
+        camions = [[] for _ in range(int(nb_camions))]
         if nb_camions > 0 :
             for i, station in enumerate(stations):
-                camions[i % nb_camions].append(station)
+                camions[i % nb_camions].append(int(station))
         return camions
 
     #Calcul la distance maximal parcourru par tout les camions
@@ -81,18 +81,19 @@ class GeneticAlgorithm:
         return total
 
     # Compte la différence total des fluxs de vélo dans toute les stations
-    def flux_stations(self, stations):
+    def flux_stations(self, stations, camions):
         total = 0
-        all_stations = calculate_flow(stations)
+        all_stations = self.calculate_flow(camions)
         for i in all_stations :
             total += abs(i)
         return total
 
     # Met les fluxs de vélo après le passage des camions
-    def calculate_flow(self, stations):
+    def calculate_flow(self, camions):
         all_stations = self.stations.copy()
-        for i in stations:
-            all_stations[i] = 0
+        for camion in camions:
+            for i in range(len(camion)):
+                all_stations[int(camion[i])-1] = 0
         return all_stations
 
     # Croisement (Crossover) à un point
@@ -118,16 +119,16 @@ class GeneticAlgorithm:
                 reverse=True
             )
             best = self.population[0]
-            best_score = self.evaluate_fitness(best)
+            best_score = self.fitness(best)
             print(f"Génération {generation}: Meilleur score: {best_score}")
 
             new_population = []
             while len(new_population) < self.population_size:
-                parent1 = self.selection(self.population, self.distance_matrix, self.stations)
-                parent2 = self.selection(self.population, self.distance_matrix, self.stations)
-                enfant1, enfant2 = self.crossover(parent1, parent2, self.genome_length)
-                enfant1 = self.mutation(enfant1, self.mutation_rate)
-                enfant2 = self.mutation(enfant2, self.mutation_rate)
+                parent1 = self.selection()
+                parent2 = self.selection()
+                enfant1, enfant2 = self.crossover(parent1, parent2)
+                enfant1 = self.mutation(enfant1)
+                enfant2 = self.mutation(enfant2)
                 new_population.extend([enfant1, enfant2])
 
             self.population = new_population[:self.population_size]
@@ -141,6 +142,6 @@ class GeneticAlgorithm:
     def run(self):
         best_genome = self.evolve()
         print(f"Meilleure solution trouvée : {best_genome}")
-        score = self.evaluate_fitness(best_genome)
+        score = self.fitness(best_genome)
         print(f"Fitness finale : {score}")
         return best_genome, score

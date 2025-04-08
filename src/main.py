@@ -1,12 +1,12 @@
-from RandomForest import BikeFluctuationPredictor
-from OR_Strategies import TSPSolver
-from AlgoGenetics import GeneticAlgorithm
+from RandomForest import mainRandomForest
+from OR_Strategies import OR_tool
+from AlgoGenetics import main_AlgoGenetics
 import pandas as pd
 import numpy as np
 
 def main():
     # === 1. Prédire les flux de vélos du jour suivant ===
-    predictor = BikeFluctuationPredictor(
+    predictor = mainRandomForest.BikeFluctuationPredictor(
         data_path="../data/diff_dic.csv",
         target_column="2020-04-30"  # à remplacer dynamiquement si besoin
     )
@@ -15,11 +15,11 @@ def main():
 
     # === 2. Charger la matrice de distances ===
 
-    dist_df = pd.read_csv("../data/matrice_distance.csv", index_col=0)
+    dist_df = pd.read_csv("../data/GLOBAL_distance_all.csv", index_col=0)
     distance_matrix = dist_df.values.tolist()
 
     # === 3. Algorithme Génétique ===
-    ag = GeneticAlgorithm(
+    ag = main_AlgoGenetics.GeneticAlgorithm(
         genome_length=len(flux_prevu),
         population_size=100,
         mutation_rate=0.1,
@@ -30,8 +30,8 @@ def main():
     best_genome, score_ag = ag.run()
 
     # === 4. Solution avec OR-Tools ===
-    or_solver = VRPSolver("../data/matrice_distance.csv")
-    solution_or, dist_or = or_solver.solve_return()
+    or_solver = OR_tool.TSPSolver("../data/GLOBAL_distance_all.csv")
+    solution_or, dist_or = or_solver.solve()
 
     # === 5. Présentation & comparaison ===
     print("\n Comparaison des solutions :")

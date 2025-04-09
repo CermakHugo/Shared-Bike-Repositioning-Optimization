@@ -23,15 +23,15 @@ The study aims to minimize unmet demand with the following objectives:
 
 ## Annotated Literature Review
 
-Machine Learning for Demand: Ashqar et al. (2020) developed random forest and boosting techniques to predict short-term bike availability. 
+- Machine Learning for Demand: Ashqar et al. (2020) developed random forest and boosting techniques to predict short-term bike availability. 
 
-Similarly, Albuquerque et al. (2021) demonstrated the effectiveness of machine learning in modeling station demand in dynamic environments. 
+- Albuquerque et al. (2021) demonstrated the effectiveness of machine learning in modeling station demand in dynamic environments. 
 
-Routing & Optimization: Liu et al. (2016) incorporated multi-source data for route planning, while Cho et al. (2021) emphasized how demand forecasts can minimize unmet demand. 
+- Routing & Optimization: Liu et al. (2016) incorporated multi-source data for route planning, while Cho et al. (2021) emphasized how demand forecasts can minimize unmet demand. 
 
-Xanthopoulos et al. (2024) utilized a genetic algorithm to optimize location and capacity, an approach that can be adapt for repositioning. 
+- Xanthopoulos et al. (2024) utilized a genetic algorithm to optimize location and capacity, an approach that can be adapt for repositioning. 
 
-Conrow et al. (2018) highlighted the importance of addressing coverage equity in system planning, which is conceptually significant for ensuring that no sub-region of the city is overlooked.
+- Conrow et al. (2018) highlighted the importance of addressing coverage equity in system planning, which is conceptually significant for ensuring that no sub-region of the city is overlooked.
 
 ## Technologies used
 

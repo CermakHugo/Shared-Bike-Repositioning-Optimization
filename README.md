@@ -13,15 +13,25 @@ This research project aims to optimise the rebalancing of bicycles in a self-ser
 
 
 ## Objectives
+The study aims to minimize unmet demand with the following objectives:
 
-- Analyse the imbalance patterns of self-service bicycle stations.
+- Utilizes robust models to forecast short to medium-term station utilization by identifying daily trends and providing real-time or near-real-time estimates. 
 
-- Develop mathematical and algorithmic models to optimise rebalancing.
+- Develops and compares route-planning and capacity-allocation methods, including heuristics and genetic algorithms to effectively manage truck-based redistribution in response to station surpluses or deficits. 
 
-- Test and validate the approaches using real data.
+- Assesses the necessary number of trucks and dispatch intervals while balancing operational costs, complexity, equity considerations, and feasibility within standard computational resources.
 
-- Propose recommendations for improving the efficiency of existing systems.
+## Annotated Literature Review
 
+Machine Learning for Demand: Ashqar et al. (2020) developed random forest and boosting techniques to predict short-term bike availability. 
+
+Similarly, Albuquerque et al. (2021) demonstrated the effectiveness of machine learning in modeling station demand in dynamic environments. 
+
+Routing & Optimization: Liu et al. (2016) incorporated multi-source data for route planning, while Cho et al. (2021) emphasized how demand forecasts can minimize unmet demand. 
+
+Xanthopoulos et al. (2024) utilized a genetic algorithm to optimize location and capacity, an approach that can be adapt for repositioning. 
+
+Conrow et al. (2018) highlighted the importance of addressing coverage equity in system planning, which is conceptually significant for ensuring that no sub-region of the city is overlooked.
 
 ## Technologies used
 

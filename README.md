@@ -1,10 +1,10 @@
 # Optimising the rebalancing of self-service bicycles
 
 ## TEAM :
-- LE CHAIX Marie-Zita
-- CERMAK Hugo
-- VIGAND Joseph
-- JACQUET Alexis
+- LE CHAIX Marie-Zita (MZ)
+- CERMAK Hugo (HC)
+- VIGAND Joseph (JV)
+- JACQUET Alexis (AJ)
 
   
 ## Description
@@ -44,7 +44,16 @@ Data used for this project includes:
 
 - Weather and event data that can influence demand.
 
-
+## Project Contribution
+|Project component|Description|MZ|HC|JV|AJ|
+|-|-|-|-|-|-|
+|Documentation|Documenting the code and project progress|0|0|0|0|
+|Code|Contributing code for the tasks of the project|0|0|0|0|
+|Communication|Communication with stakeholders and facilitator role within the team|0|0|0|0|
+|Research|Module-specific research to direct the development|0|0|0|0|
+|Presentation|Presentation of the project results|0|0|0|0|
+|Management|Planning individual work as well as collaboration within the assigned module|0|0|0|0|
+|**Overall**|Involvement optimality score|0|0|0|0|
 
 ## Directory structure
 

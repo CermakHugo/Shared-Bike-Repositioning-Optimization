@@ -1,6 +1,12 @@
 # Optimising the rebalancing of self-service bicycles
 
+## TEAM :
+- LE CHAIX Marie-Zita
+- CERMAK Hugo
+- VIGAND Joseph
+- JACQUET Alexis
 
+  
 ## Description
 
 This research project aims to optimise the rebalancing of bicycles in a self-service system. The aim is to propose models and algorithms to improve the availability of bicycles and free spaces in stations while minimising logistical costs.

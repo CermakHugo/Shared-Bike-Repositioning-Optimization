@@ -1,6 +1,6 @@
 # Optimising the rebalancing of self-service bicycles
 
-## TEAM :
+## TEAM
 - LE CHAIX Marie-Zita (MZ)
 - CERMAK Hugo (HC)
 - VIGAND Joseph (JV)

@@ -23,15 +23,21 @@ The study aims to minimize unmet demand with the following objectives:
 
 ## Annotated Literature Review
 
-- Machine Learning for Demand: Ashqar et al. (2020) developed random forest and boosting techniques to predict short-term bike availability. 
+- Ashqar, H.I., Elhenawy, M., Almannaa, M.H., Ghanem, A., Rakha, H.A., House, L. (2020). Modeling Bike Availability in a Bike-Sharing System Using Machine Learning. arXiv preprint arXiv:2006.08352.
+  -> developed random forest and boosting techniques to predict short-term bike availability. 
 
 - Albuquerque et al. (2021) demonstrated the effectiveness of machine learning in modeling station demand in dynamic environments. 
 
-- Routing & Optimization: Liu et al. (2016) incorporated multi-source data for route planning, while Cho et al. (2021) emphasized how demand forecasts can minimize unmet demand. 
+- Routing & Optimization: Liu et al. (2016) incorporated multi-source data for route planning.
 
-- Xanthopoulos et al. (2024) utilized a genetic algorithm to optimize location and capacity, an approach that can be adapt for repositioning. 
+- Cho, J.-H., Seo, Y.-H., Kim, D.-K. (2021). Efficiency Comparison of Public Bike-Sharing Repositioning Strategies Based on Predicted Demand Patterns. Transportation Research Record, 2675(11), 104–118.
+  -> emphasized how demand forecasts can minimize unmet demand. 
 
-- Conrow et al. (2018) highlighted the importance of addressing coverage equity in system planning, which is conceptually significant for ensuring that no sub-region of the city is overlooked.
+- Xanthopoulos, S., van der Tuin, M., Sharif Azadeh, S., Correia, G.H.A., van Oort, N., Snelder, M. (2024). Optimization of the location and capacity of shared multimodal mobility hubs to maximize travel utility in urban areas. Transportation Research Part A, 179, 103934
+  -> utilized a genetic algorithm to optimize location and capacity, an approach that can be adapt for repositioning. 
+
+- Conrow, L., Murray, A.T., Fischer, H.A. (2018). An Optimization Approach for Equitable Bicycle Share Station Siting. Journal of Transport Geography, 69, 163–170.
+  -> highlighted the importance of addressing coverage equity in system planning, which is conceptually significant for ensuring that no sub-region of the city is overlooked.
 
 ## Technologies used
 

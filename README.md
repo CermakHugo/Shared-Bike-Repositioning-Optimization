@@ -26,9 +26,11 @@ The study aims to minimize unmet demand with the following objectives:
 - Ashqar, H.I., Elhenawy, M., Almannaa, M.H., Ghanem, A., Rakha, H.A., House, L. (2020). Modeling Bike Availability in a Bike-Sharing System Using Machine Learning. arXiv preprint arXiv:2006.08352.
   -> developed random forest and boosting techniques to predict short-term bike availability. 
 
-- Albuquerque et al. (2021) demonstrated the effectiveness of machine learning in modeling station demand in dynamic environments. 
+- Albuquerque V., Andrade F., Ferreira J., Dias M., Bacao F. Bike-sharing mobility patterns: A data-driven analysis for the city of Lisbon. EAI Endorsed Transactions on Smart Cities. 2021;5(16):1–20
+  -> demonstrated the effectiveness of machine learning in modeling station demand in dynamic environments. 
 
-- Routing & Optimization: Liu et al. (2016) incorporated multi-source data for route planning.
+- Liu, J., Sun, L., Chen, W., et al. (2016). Rebalancing Bike Sharing Systems: A Multi-Source Data Smart Optimization. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, San Francisco, CA, USA, 13-17 August 2016.
+  -> incorporated multi-source data for route planning.
 
 - Cho, J.-H., Seo, Y.-H., Kim, D.-K. (2021). Efficiency Comparison of Public Bike-Sharing Repositioning Strategies Based on Predicted Demand Patterns. Transportation Research Record, 2675(11), 104–118.
   -> emphasized how demand forecasts can minimize unmet demand. 

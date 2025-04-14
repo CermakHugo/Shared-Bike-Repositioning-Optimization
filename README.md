@@ -21,6 +21,16 @@ The study aims to minimize unmet demand with the following objectives:
 
 - Assesses the necessary number of trucks and dispatch intervals while balancing operational costs, complexity, equity considerations, and feasibility within standard computational resources.
 
+## Research and Developement
+Selection of Strategies to Compare
+
+Cho et al. (2021) demonstrated that more accurate demand prediction leads to more effective vehicle rebalancing in shared mobility systems. Similarly, Albuquerque et al. (2021) highlighted the effectiveness of machine learning techniques for forecasting demand. Among these, Random Forest has emerged as one of the most promising algorithms, especially when incorporating historical and weather-related data, as shown by Ashqar et al. (2020). Given the strong consensus in the literature regarding the performance of Random Forest for demand prediction, our study focuses instead on the decision-making phase of the rebalancing process. This allows for a more meaningful comparison of rebalancing strategies, as the prediction component is considered largely resolved.
+
+Selection of Decision-Making Strategies for E-bike Rebalancing
+
+For the decision-making process in e-bike rebalancing, Xanthopoulos et al. (2024) demonstrated that genetic algorithms, a class of evolutionary metaheuristics, can effectively solve complex optimization problems, such as determining the location and allocation of shared vehicles. Based on this insight, we selected two decision-making strategies to compare. The first is a fully automated approach using a genetic algorithm to dynamically optimize the rebalancing process. The second represents a more practical, human-centered strategy supported by a small-scale Vehicle Routing Problem (VRP) solver, which is used to generate optimal routes within each time slot. This comparison aims to evaluate the added value of advanced algorithmic approaches over more traditional operational strategies that rely on human expertise and classic optimization tools.
+
+
 ## Annotated Literature Review
 
 - Liu, J., Sun, L., Chen, W., et al. (2016). Rebalancing Bike Sharing Systems: A Multi-Source Data Smart Optimization. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, San Francisco, CA, USA, 13-17 August 2016.

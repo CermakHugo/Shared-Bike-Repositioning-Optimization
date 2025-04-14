@@ -36,7 +36,7 @@ This paper explores how bike share stations can be more effectively distributed 
 This paper predicts the number of bikes at each station using machine learning. Random Forest (RF) performs best, with a Mean Absolute Error (MAE) of 0.37 bikes/station, outperforming LSBoost and PLSR. Predictions are most accurate with a 15-minute horizon. Key features include station neighbors and weather (temperature, rain, humidity, wind, visibility). The study suggests adding memory (past availability) for future improvements.
 
 
-Cho, J.-H., Seo, Y.-H., Kim, D.-K. (2021). Efficiency Comparison of Public Bike-Sharing Repositioning Strategies Based on Predicted Demand Patterns. Transportation Research Record, 2675(11), 104–118. 
+- Cho, J.-H., Seo, Y.-H., Kim, D.-K. (2021). Efficiency Comparison of Public Bike-Sharing Repositioning Strategies Based on Predicted Demand Patterns. Transportation Research Record, 2675(11), 104–118. 
 
 This study shows that improving the efficiency of bike-sharing systems requires adapting bike repositioning strategies to meet daily demand variations. The researchers tested several strategies and found that those that use additional constraints (such as station imbalance or prediction error) are more effective at reducing bike shortages, especially when demand varies greatly. To determine which strategy to use, they created two indicators: RRPI (which measures inventory variations within the day) and SVUD (which measures shortage differences between stations). These two indices allow for classifying days according to the type of demand, and thus choosing the most appropriate strategy in advance. In short, the best strategy depends on the type of day, and this method allows for smarter, data-driven decisions.
 

@@ -23,23 +23,27 @@ The study aims to minimize unmet demand with the following objectives:
 
 ## Annotated Literature Review
 
-- Ashqar, H.I., Elhenawy, M., Almannaa, M.H., Ghanem, A., Rakha, H.A., House, L. (2020). Modeling Bike Availability in a Bike-Sharing System Using Machine Learning. arXiv preprint arXiv:2006.08352.
-  -> developed random forest and boosting techniques to predict short-term bike availability. 
-
-- Albuquerque V., Andrade F., Ferreira J., Dias M., Bacao F. Bike-sharing mobility patterns: A data-driven analysis for the city of Lisbon. EAI Endorsed Transactions on Smart Cities. 2021;5(16):1–20
-  -> demonstrated the effectiveness of machine learning in modeling station demand in dynamic environments. 
-
 - Liu, J., Sun, L., Chen, W., et al. (2016). Rebalancing Bike Sharing Systems: A Multi-Source Data Smart Optimization. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, San Francisco, CA, USA, 13-17 August 2016.
-  -> incorporated multi-source data for route planning.
 
-- Cho, J.-H., Seo, Y.-H., Kim, D.-K. (2021). Efficiency Comparison of Public Bike-Sharing Repositioning Strategies Based on Predicted Demand Patterns. Transportation Research Record, 2675(11), 104–118.
-  -> emphasized how demand forecasts can minimize unmet demand. 
-
-- Xanthopoulos, S., van der Tuin, M., Sharif Azadeh, S., Correia, G.H.A., van Oort, N., Snelder, M. (2024). Optimization of the location and capacity of shared multimodal mobility hubs to maximize travel utility in urban areas. Transportation Research Part A, 179, 103934
-  -> utilized a genetic algorithm to optimize location and capacity, an approach that can be adapt for repositioning. 
+This paper predicts bike demand and optimizes rebalancing using historical and weather data. It uses MSWK for predicting pickups and ISBT for drop-offs. Rebalancing is solved with MINLP and clustering (AdaCCKC), grouping stations and assigning vehicles. MSWK and ISBT outperform baseline models, especially on weekends. Tested on NYC Citi Bike data, the method improves demand prediction and rebalancing.
 
 - Conrow, L., Murray, A.T., Fischer, H.A. (2018). An Optimization Approach for Equitable Bicycle Share Station Siting. Journal of Transport Geography, 69, 163–170.
-  -> highlighted the importance of addressing coverage equity in system planning, which is conceptually significant for ensuring that no sub-region of the city is overlooked.
+
+This paper explores how bike share stations can be more effectively distributed across a city to improve accessibility and ensure both spatial and social equity. It points out that traditional designs, which tend to cluster stations in central areas, often fail to meet equity objectives. Although adding more stations does increase access and coverage, the results also show that the benefits level off compared to the rising costs highlighting the importance of planning that balances efficiency with fairness.
+
+- Ashqar, H.I., Elhenawy, M., Almannaa, M.H., Ghanem, A., Rakha, H.A., House, L. (2020). Modeling Bike Availability in a Bike-Sharing System Using Machine Learning. arXiv preprint arXiv:2006.08352.
+
+This paper predicts the number of bikes at each station using machine learning. Random Forest (RF) performs best, with a Mean Absolute Error (MAE) of 0.37 bikes/station, outperforming LSBoost and PLSR. Predictions are most accurate with a 15-minute horizon. Key features include station neighbors and weather (temperature, rain, humidity, wind, visibility). The study suggests adding memory (past availability) for future improvements.
+
+
+Cho, J.-H., Seo, Y.-H., Kim, D.-K. (2021). Efficiency Comparison of Public Bike-Sharing Repositioning Strategies Based on Predicted Demand Patterns. Transportation Research Record, 2675(11), 104–118. 
+
+This study shows that improving the efficiency of bike-sharing systems requires adapting bike repositioning strategies to meet daily demand variations. The researchers tested several strategies and found that those that use additional constraints (such as station imbalance or prediction error) are more effective at reducing bike shortages, especially when demand varies greatly. To determine which strategy to use, they created two indicators: RRPI (which measures inventory variations within the day) and SVUD (which measures shortage differences between stations). These two indices allow for classifying days according to the type of demand, and thus choosing the most appropriate strategy in advance. In short, the best strategy depends on the type of day, and this method allows for smarter, data-driven decisions.
+
+- Xanthopoulos, S., van der Tuin, M., Sharif Azadeh, S., Correia, G.H.A., van Oort, N., Snelder, M. (2024). Optimization of the location and capacity of shared multimodal mobility hubs to maximize travel utility in urban areas. Transportation Research Part A, 179, 103934
+
+This research developed a model for deciding where to install shared mobility hubs (cars, bicycles, electric scooters) in a large city like Amsterdam. The goal is to maximize benefits for users, while taking into account the available budget. The model shows that it is better to install several small, well-distributed hubs rather than a few large ones, in order to better cover the city and bring services closer to people. However, the study also reveals that without policies to limit car use (such as increasing parking costs), the environmental benefits remain low, as the majority of users instead abandon cycling or public transport in favor of these shared modes.
+
 
 ## Technologies used
 

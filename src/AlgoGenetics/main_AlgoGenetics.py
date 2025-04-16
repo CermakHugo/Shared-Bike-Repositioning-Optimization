@@ -7,10 +7,10 @@ class GeneticAlgorithm:
     def __init__(self,
                  genome_length=8,
                  population_size=10,
-                 mutation_rate=0.1,
+                 mutation_rate=0.5,
                  generations=50,
-                 poids_camions = 1,
-                 poids_flux = 200,
+                 poids_camions = 10,
+                 poids_flux = 20,
                  poid_distance = 1,
                  distance_matrix=None,
                  stations=None):

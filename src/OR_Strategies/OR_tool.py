@@ -24,7 +24,6 @@ class TSPSolver:
         manager = pywrapcp.RoutingIndexManager(
             len(data['distance']), data['num_vehicles'], data['depot']
         )
-
         # Création du modèle de routage
         routing = pywrapcp.RoutingModel(manager)
 
@@ -78,10 +77,12 @@ class TSPSolver:
                 node = manager.IndexToNode(index)
                 route.append(node)
                 next_index = solution.Value(routing.NextVar(index))
+                print(f"route_distance = {route_distance}")
+                print(f"index : {index} & next_index : {next_index}")
+                print(f"distance = {data['distance'][index-1][next_index-1]}")
                 route_distance += routing.GetArcCostForVehicle(index, next_index, vehicle_id)
                 index = next_index
             route.append(manager.IndexToNode(index))  # retour au dépôt
             total_distance += route_distance
             routes[vehicle_id] = (route, route_distance)
-
         return routes, total_distance

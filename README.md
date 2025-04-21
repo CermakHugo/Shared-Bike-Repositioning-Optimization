@@ -75,7 +75,7 @@ This research developed a genetic algorithm to optimize location and capacity, a
 
 Data used for this project includes:
 
-- Open data from public bike systems.
+- Open data from public bike systems. (Divvy, Chicago _https://divvy-tripdata.s3.amazonaws.com/index.html_)
 
 - Historical bike flows between stations.
 
@@ -84,7 +84,7 @@ Data used for this project includes:
 ## Project Contribution
 |Project component|Description|MZ|HC|JV|AJ|
 |-|-|-|-|-|-|
-|Code|Contributing code for the tasks of the project|5|45|45|5|
+|Code|Contributing code for the tasks of the project|5|45|15|35|
 |Communication|Communication with stakeholders and facilitator role within the team|20|35|30|15|
 |Research|Module-specific research to direct the development|30|25|30|15|
 |Presentation|Presentation of the project results|0|0|0|0|
